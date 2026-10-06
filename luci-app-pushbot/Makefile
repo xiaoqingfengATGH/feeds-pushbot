@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-pushbot
 PKG_VERSION:=6.01
-PKG_RELEASE:=12
+PKG_RELEASE:=13
 
 PKG_MAINTAINER:=tty228 <tty228@yeah.net>  zzsj0928
 
@@ -91,6 +91,15 @@ fi
 	[ -f /tmp/pushbot/wireless_ifs ] && rm -f /tmp/pushbot/wireless_ifs
 }
 exit 0
+endef
+
+# luci.mk copies root/ with preserved modes. Normalize executable entry
+# points explicitly, including after archives/Windows checkouts lose +x.
+define Build/Prepare/luci-app-pushbot
+	$(INSTALL_BIN) ./root/etc/init.d/pushbot $(PKG_BUILD_DIR)/root/etc/init.d/pushbot
+	$(INSTALL_BIN) ./root/usr/bin/pushbot/pushbot $(PKG_BUILD_DIR)/root/usr/bin/pushbot/pushbot
+	$(INSTALL_BIN) ./root/etc/uci-defaults/99-zed-apk-key-pushbot $(PKG_BUILD_DIR)/root/etc/uci-defaults/99-zed-apk-key-pushbot
+	$(INSTALL_BIN) ./root/etc/uci-defaults/luci-pushbot $(PKG_BUILD_DIR)/root/etc/uci-defaults/luci-pushbot
 endef
 
 include $(TOPDIR)/feeds/luci/luci.mk
