@@ -14,4 +14,4 @@ subdirectory per package. This repo wraps the upstream tree verbatim under
 
 ## Usage (feeds.conf.default)
 
-    src-git pushbot https://github.com/xiaoqingfengATGH/feeds-pushbot.git;master
+    src-git pushbot https://github.com/xiaoqingfengATGH/feeds-pushbot.git;main
